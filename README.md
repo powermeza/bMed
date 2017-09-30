@@ -1,6 +1,6 @@
 # bMed
-Collection of tools for bMed
+Collection of tools written en Python for bMed
 
 List of tools:
 
-1) Convert extract file from bMed (Pacientes) in CSV format into IFSO_Baseline Version 3.0 upload file.  
+1) Baseline creator: extract date from a bMed (Pacientes) file in CSV format and create IFSO_Baseline (Version 3.0) upload file.  
