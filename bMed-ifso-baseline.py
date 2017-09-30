@@ -8,7 +8,7 @@ empty_list = []
 
 multichoiseseparator = ";"      #S
 SPECVERSION = "3"               # Version 3.0 1 Feb 2017
-SUBMITCODE = "ZZZ"              #SUBMITCODE
+SUBMITCODE = "ZZZ"              #SUBMITCODE-- get this code from ifso
 
 output_file = "IFSO_" + SUBMITCODE + "_Baseline.txt"
 
