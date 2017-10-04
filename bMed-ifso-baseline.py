@@ -47,8 +47,18 @@ def convert_tipodepaciente(tipodepaciente):
     FUNDINGCATEGORY = "3"
   return FUNDINGCATEGORY
 
-TYPE2DIABETES = "0"                                   # 0 - No, 1 - Yes
-TYPEOFDIABETESMEDICATION = "1"                        # 1 - Oral therapy, 2 - Insulin
+TYPE2DIABETES = "0"                                   # 0 - No, 1 - Yes   <--  Diabetes Tipo 2 con Medicamento, No,Si
+
+def convert_SiNo(SiNo):
+  YesNo = "0"
+  if SiNo == "No":
+    YesNo = "0"
+  elif SiNo == "Si":
+    YesNo = "1"
+  return YesNo
+
+
+TYPEOFDIABETESMEDICATION = "1"                        # 1 - Oral therapy, 2 - Insulin <-- Tipo de Medicamento para Diabetes, Insulina, Oral
 HYPERTENSIONONMEDICATION = "0"                        # 0 - No, 1 - Yes
 DEPRESSIONONMEDICATION = "0"                          # 0 - No, 1 - Yes
 INCREASEDRISKOFDVTORPE = "0"                          # 0 - No, 1 - Yes
@@ -197,14 +207,15 @@ DATEOFDISCHARGEORDEATH = "2017-01-01"               #???
 
 
 #input file
-print "Input File: %s" % input_file_cirugias
+print ("Input File: %s" % input_file_cirugias)
 f_cirugias = open(input_file_cirugias)
 reade = csv.DictReader(f_cirugias, delimiter=',')
 
 #Add an integrity check to ensure the input file has all the variables needed to genereate the output
 
 #Output file
-print "Output File: %s" % output_file
+print ("Output File: %s" % output_file)
+
 f = open(output_file,'w')
 f.write("S SPECVERSION SUBMITCODE IMPORTLINKID DEMOGID DEMOGDATEOFBIRTH GENDER ")
 f.write("AGEATOPERATION HEIGHT WEIGHTONENTRYTOTHEWEIGHTLOSSPROGRAM FUNDINGCATEGORY TYPE2DIABETES TYPEOFDIABETESMEDICATION ")
@@ -224,7 +235,7 @@ for line in reade:
     f.write(line["Altura (Mts)"] + " ")
     f.write(line["Peso al Iniciar el Protocolo (Kgs)"] + " ")                   #WEIGHTONENTRYTOTHEWEIGHTLOSSPROGRAM <-- Peso al Iniciar el Protocolo (Kgs)
     f.write(convert_tipodepaciente(line["Tipo de Paciente"]) + " ")             #FUNDINGCATEGORY <-- Tipo de Paciente
-    f.write(TYPE2DIABETES + " ")
+    f.write(convert_SiNo(line["Diabetes Tipo 2 con Medicamento"]) + " ")        #TYPE2DIABETES <-- Diabetes Tipo 2 con Medicamento
     f.write(TYPEOFDIABETESMEDICATION + " ")
     f.write(HYPERTENSIONONMEDICATION + " ")
     f.write(DEPRESSIONONMEDICATION + " ")
@@ -251,4 +262,4 @@ for line in reade:
 
 
 f.close()
-print errors, "errors"
+print (errors, "errors")
