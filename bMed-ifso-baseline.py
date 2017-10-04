@@ -74,10 +74,6 @@ def convert_SiNo(SiNo):
 #  for c in SiNo:
 #      print (ord(c))
 #  print ("New Si: " + Si_c)
-  if SiNo == "No":
-    YesNo = "0"
-  elif SiNo == "Si":
-    YesNo = "1"
   elif SiNo == Si_c:    #<--- Must check validation for Si with an accent
     YesNo = "1"
   return YesNo
@@ -396,3 +392,4 @@ print ("|    Lines processed: ", lines_converted)
 print ("|    Errors:          ", errors)
 print ("|    Bad Dates:       ", error_counter_bad_date)
 print ("|-------------------------------------------------------------------------------|")
+
