@@ -1,4 +1,4 @@
-import csv, unicodedata
+import csv, unicodedata, sys, getopt
 
 print ("")
 print ("|-----------------[ bMed IFSO Baseline generator by Juan Meza ]-----------------|")
@@ -9,12 +9,48 @@ error_counter_bad_date = 0
 lines_converted = 0
 empty_dict = {}
 empty_list = []
+SUBMITCODE = " "              #SUBMITCODE-- get this code from ifso
+input_file_cirugias = "."
+opts = []
+args = []
 
-input_file_pacientes = "Pacientes.csv"
-input_file_cirugias = "Cirugias.csv"
+try:
+    opts, args = getopt.getopt(sys.argv[1:],"h:i:s:")
+except getopt.GetoptError:
+    print ("| Error: arguments needed, use:                                             |")
+    print ("|  bMed-ifso-baseline.py -s <Submittercode>-i <inputfile>                   |")
+    print ("|                                                                           |")
+    print ("|---------------------------------------------------------------------------|")
+    sys.exit(2)
+for opt, arg in opts:
+    if opt == '-h':
+        print ("| Error: arguments needed, use:                                             |")
+        print ("|  bMed-ifso-baseline.py -s <Submittercode>-i <inputfile>                   |")
+        print ("|                                                                           |")
+        print ("|---------------------------------------------------------------------------|")
+        sys.exit()
+    elif opt == '-i':
+        input_file_cirugias = arg
+    elif opt == '-s':
+        SUBMITCODE = arg
+
+if input_file_cirugias == ".":
+    print ("| Error: Input file is invalid.                                             |")
+    print ("|  Input File Name read: %s                                               |" % input_file_cirugias)
+    print ("|                                                                           |")
+    print ("|---------------------------------------------------------------------------|")
+    sys.exit()
+
+if len(SUBMITCODE) != 3:
+    print ("| Error: Submitter code is invalid, it should be a 3 character code.        |")
+    print ("|  Submitter code read: %s                                               |"% SUBMITCODE)
+    print ("|                                                                           |")
+    print ("|---------------------------------------------------------------------------|")
+    sys.exit()
+
 multichoiseseparator = ";"      #S
 SPECVERSION = "3"               # Version 3.0 1 Feb 2017
-SUBMITCODE = "ZZZ"              #SUBMITCODE-- get this code from ifso
+
 output_file = "IFSO_" + SUBMITCODE + "_Baseline.txt"
 
 print ("|    IFSO Version:     ", SPECVERSION )
@@ -74,6 +110,10 @@ def convert_SiNo(SiNo):
 #  for c in SiNo:
 #      print (ord(c))
 #  print ("New Si: " + Si_c)
+  if SiNo == "No":
+    YesNo = "0"
+  elif SiNo == "Si":
+    YesNo = "1"
   elif SiNo == Si_c:    #<--- Must check validation for Si with an accent
     YesNo = "1"
   return YesNo
@@ -392,4 +432,3 @@ print ("|    Lines processed: ", lines_converted)
 print ("|    Errors:          ", errors)
 print ("|    Bad Dates:       ", error_counter_bad_date)
 print ("|-------------------------------------------------------------------------------|")
-
