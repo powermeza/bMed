@@ -1,5 +1,5 @@
 # bMed
-Collection of tools written en Python for bMed
+Collection of tools written in Python for bMed
 
 List of tools:
 
